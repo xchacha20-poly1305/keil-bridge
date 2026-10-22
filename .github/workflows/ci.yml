@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
   pull_request:
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.1
       - run: uv sync --locked
       - run: uv run ruff check --output-format=github .
       - run: uv run ruff format --check .
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v7
       # Lets the end-to-end test build the converted tree instead of skipping that step.
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends gcc-arm-none-eabi libnewlib-arm-none-eabi
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.1
         with:
           python-version: ${{ matrix.python }}
       - run: uv sync --locked
